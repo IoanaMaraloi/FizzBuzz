@@ -1,15 +1,18 @@
 import * as readlineSync from 'readline-sync';
 function fizzBuzz(endNumber: number, rules:string[]): void {
-    for(let i = 0; i < endNumber; i++) {
-        let ans :string = "";
+
+    for(let i = 1; i < endNumber; i++) {
+        let ans :string[ ] = [];
         if (i % 3 == 0){
-            ans += rules[0];
+            ans.push(rules[0]);
         }
         if (i % 5 == 0){
-            ans += rules[1];
+
+            ans.push(rules[1]);
         }
         if (i % 7 == 0) {
-            ans += "Bang";
+
+            ans.push("Bang");
         }
         if (i % 11 == 0){
             console.log("Bong");
@@ -17,73 +20,69 @@ function fizzBuzz(endNumber: number, rules:string[]): void {
         }
         if (i % 13 == 0){
             if (ans.length == 0){
-                ans += rules[2];
+                ans.push(rules[2]);
             }else {
-                let pos = ans.indexOf("B");
-                if (pos < 0)
-                {
-                    ans += rules[2];
-                }else {
-                    ans = ans.slice(0, pos) +  rules[2]+ ans.slice(pos);
+                for (let j = 0; j < ans.length; j++) {
+                    if (ans[j][0] === 'B'){
+                        let end = ans.slice(j);
+                        ans = ans.slice(0, j);
+                        ans.push(rules[2]);
+                        ans = ans.concat(end);
+                        break;
+                    }
                 }
+
             }
         }
         if (i % 17 == 0){
-            let res: string = "";
-            while(ans){
-                res = ans.slice(0, 4)+ res;
-                ans = ans.slice(4);
-            }
-            ans = res;
+           ans.reverse();
         }
 
-        if (ans == ""){
+        if (ans.length == 0){
             console.log(i);
         }else{
-            console.log(ans);
+            console.log(ans.join(""));
         }
     }
 }
 
 export function fizzBuzzTesting(number: number, rules:string[]): string {
-    let ans:string = "";
+    let ans:string[] = [];
     if (number % 3 == 0){
-        ans+= rules[0];
+        ans.push(rules[0]);
     }
     if (number % 5 == 0){
-        ans+= rules[1];
+        ans.push(rules[1]);
     }
     if (number % 7 == 0) {
-        ans+= "Bang";
+        ans.push("Bang");
     }
     if (number % 11 == 0){
         return "Bong";
     }
     if (number % 13 == 0){
         if (ans.length == 0){
-            ans += rules[2];
+            ans.push(rules[2]);
         }else {
-            let pos = ans.indexOf("B");
-            if (pos < 0){
-                ans += rules[2];
-            }else {
-                ans = ans.slice(0, pos) +  rules[2]+ ans.slice(pos);
+            for (let j = 0; j < ans.length; j++) {
+                if (ans[j][0] === 'B'){
+                    let end = ans.slice(j);
+                    ans = ans.slice(0, j);
+                    ans.push(rules[2]);
+                    ans = ans.concat(end);
+                    break;
+                }
             }
         }
     }
     if (number % 17 == 0){
-        let res: string = "";
-        while(ans){
-            res = ans.slice(0, 4)+ res;
-            ans = ans.slice(4);
-        }
-        ans = res;
+       ans.reverse();
     }
 
-    if (ans == ""){
+    if (ans.length == 0){
         return number.toString();
     }
-    return ans;
+    return ans.join("");
 }
 
 function main() {
